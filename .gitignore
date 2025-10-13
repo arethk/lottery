@@ -1,0 +1,6 @@
+server/node_modules/
+server/dist/
+server/*.js
+server/*.js.map
+server/*.d.ts
+server/*.d.ts.map
