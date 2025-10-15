@@ -13,3 +13,12 @@ body {
     color-scheme: dark;
   }
 }
+
+.lottery-label {
+  width: 20%;
+  cursor: pointer;
+}
+
+.lottery-label:hover {
+  background: lightgray;
+}
