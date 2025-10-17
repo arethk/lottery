@@ -27,14 +27,14 @@ export function Lottery() {
         setSelections([]);
     }
 
-    function randomIntFromInterval(min: number, max: number) {
+    function randomInt(min: number, max: number) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
     function quickPick() {
         const picks: Array<number> = [];
         while (picks.length < 6) {
-            const randomPick = randomIntFromInterval(1, 69);
+            const randomPick = randomInt(1, 69);
             if (picks.includes(randomPick) === false) {
                 picks.push(randomPick);
             }
@@ -58,7 +58,7 @@ export function Lottery() {
                     {selections.length > 0 ? (
                         <div>
                             Lottery selections:&nbsp;
-                            {selections.sort().join(", ")}
+                            {selections.sort((a, b) => a - b).join(", ")}
                         </div>
                     ) : (
                         <div>Lottery</div>
