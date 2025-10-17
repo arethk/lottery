@@ -27,12 +27,27 @@ export function Lottery() {
         setSelections([]);
     }
 
+    function randomIntFromInterval(min: number, max: number) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function quickPick() {
+        const picks: Array<number> = [];
+        while (picks.length < 6) {
+            const randomPick = randomIntFromInterval(1, 69);
+            if (picks.includes(randomPick) === false) {
+                picks.push(randomPick);
+            }
+        }
+        setSelections(picks);
+    }
+
     function submit() {
         if (selections.length === 6) {
             setIsSubmitting(true);
-            
+
         } else {
-            alert("You must selct 6 numbers");
+            alert("You must select 6 numbers");
         }
     }
 
@@ -75,6 +90,7 @@ export function Lottery() {
                             </div>
                             <div className="button-div">
                                 <button className="clear-button" type="button" onClick={clear}>Clear</button>
+                                <button className="quickpick-button" type="button" onClick={quickPick}>Quick Pick</button>
                                 <button className="submit-button" type="button" onClick={submit}>Submit</button>
                             </div>
                         </nav>
