@@ -5,7 +5,7 @@ import { Lottery } from "~/lottery/lottery";
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Lottery" },
-    { name: "description", content: "An excersize in react and NodeJS with typescript" },
+    { name: "description", content: "An exercise in react and NodeJS with typescript" },
   ];
 }
 

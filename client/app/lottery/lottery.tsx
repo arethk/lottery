@@ -1,36 +1,85 @@
-
-
+import { useState, type ChangeEvent } from 'react';
 
 export function Lottery() {
+    const defaultSelections: Array<number> = [];
+    const [selections, setSelections] = useState(defaultSelections);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
+        const value: number = parseInt(event.target.value);
+        const isChecked: boolean = event.target.checked;
+        if (isChecked === true) {
+            if (selections.length >= 6) {
+                alert("You can only pick 6 numbers");
+            } else {
+                if (selections.includes(value) === false) {
+                    // add selection
+                    setSelections([...selections, value]);
+                }
+            }
+        } else {
+            // remove selection
+            setSelections(selections.filter(item => item !== value));
+        }
+    }
+
+    function clear() {
+        setSelections([]);
+    }
+
+    function submit() {
+        if (selections.length === 6) {
+            setIsSubmitting(true);
+            
+        } else {
+            alert("You must selct 6 numbers");
+        }
+    }
 
     return (
         <main className="flex items-center justify-center pt-16 pb-4">
             <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
                 <header className="flex flex-col items-center gap-9">
-                    <div className="w-[400px] max-w-[100vw] p-4">
-                        Lottery
-                    </div>
-                </header>
-                <div className="max-w-[400px] w-full space-y-6 px-4">
-                    <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-                        <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
-                            Select your numbers
-                        </p>
-                        <div className="flex flex-wrap">
-                            {[...Array(69)].map((_, index:number) => (
-                                <label className="lottery-label" key={index + 1}>
-                                    <input
-                                    type="checkbox"
-                                    name="pick"
-                                    //checked={selections.optionA}
-                                    //onChange={handleChange}
-                                    />
-                                    &nbsp;&nbsp;{index + 1}
-                                </label>
-                            ))}
+                    {selections.length > 0 ? (
+                        <div>
+                            Lottery selections:&nbsp;
+                            {selections.sort().join(", ")}
                         </div>
-                    </nav>
-                </div>
+                    ) : (
+                        <div>Lottery</div>
+                    )}
+                </header>
+                {isSubmitting === true ? (
+                    <div>
+                        Loading ...
+                    </div>
+                ) : (
+                    <div className="max-w-[400px] w-full space-y-6 px-4">
+                        <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
+                            <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
+                                Make your lottery picks
+                            </p>
+                            <div className="flex flex-wrap">
+                                {[...Array(69)].map((_, index: number) => (
+                                    <label className="lottery-label" key={index + 1}>
+                                        <input
+                                            type="checkbox"
+                                            name="pick"
+                                            value={index + 1}
+                                            checked={selections.includes(index + 1) === true}
+                                            onChange={handleChange}
+                                        />
+                                        &nbsp;&nbsp;{index + 1}
+                                    </label>
+                                ))}
+                            </div>
+                            <div className="button-div">
+                                <button className="clear-button" type="button" onClick={clear}>Clear</button>
+                                <button className="submit-button" type="button" onClick={submit}>Submit</button>
+                            </div>
+                        </nav>
+                    </div>
+                )}
                 <footer></footer>
             </div>
         </main>
