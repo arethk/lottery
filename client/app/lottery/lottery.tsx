@@ -1,9 +1,13 @@
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 
 export function Lottery() {
     const defaultSelections: Array<number> = [];
     const [selections, setSelections] = useState(defaultSelections);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        clear();
+    }, []);
 
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
         const value: number = parseInt(event.target.value);
