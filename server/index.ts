@@ -21,20 +21,21 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/lottery', (req: Request, res: Response) => {
+    const now = Date.now();
     const entries = 6;
     const min = 1;
     const max = 69;
     let algorithm: string = "";
     let winners: Array<number> = [];
     // choose a random random number generator
-    if (Date.now() % 2 === 0) {
+    if (now % 2 === 0) {
         algorithm = "basic";
         winners = BasicRandom.getInstance().generateList(entries, min, max);
     } else {
         algorithm = "mt";
         winners = MersenneTwisterRandom.getInstance().generateList(entries, min, max);
     }
-    const responseDTO: LotteryResponseDTO = new LotteryResponseDTO(Date.now(), winners, algorithm);
+    const responseDTO: LotteryResponseDTO = new LotteryResponseDTO(now, winners, algorithm);
     res.contentType("application/json");
     res.send(responseDTO);
 });
