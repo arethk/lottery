@@ -63,3 +63,7 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+  .pt-5 {
+    padding-top: calc(var(--spacing) * 5);
+  }

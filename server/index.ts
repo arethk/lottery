@@ -36,6 +36,7 @@ app.get('/lottery', (req: Request, res: Response) => {
         winners = MersenneTwisterRandom.getInstance().generateList(entries, min, max);
     }
     const responseDTO: LotteryResponseDTO = new LotteryResponseDTO(now, winners, algorithm);
+    res.header("Access-Control-Allow-Origin", "*");
     res.contentType("application/json");
     res.send(responseDTO);
 });
