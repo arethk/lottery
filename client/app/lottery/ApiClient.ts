@@ -5,13 +5,15 @@ export interface LotteryResponseDTO {
 }
 
 export class ApiClient {
-    public static readonly BASE_URL: string = "http://localhost:3000/";
-    public static readonly LOTTERY: string = "lottery/";
+    public static readonly USE_NODEJS_SERVER: boolean = false;
+    public static readonly NODEJS_BASE_URL: string = "http://localhost:3000/";
+    public static readonly JAVA_SERVER_BASE_URL: string = "http://localhost:8080/";
+    public static readonly LOTTERY: string = "lottery";
 
     private static instance: ApiClient;
 
     private constructor() {
-        
+
     }
 
     public static getInstance(): ApiClient {
@@ -21,9 +23,17 @@ export class ApiClient {
         return ApiClient.instance;
     }
 
+    private getLotteryURL(): string {
+        let url = ApiClient.JAVA_SERVER_BASE_URL;
+        if (ApiClient.USE_NODEJS_SERVER === true) {
+            url = ApiClient.NODEJS_BASE_URL;
+        }
+        return url + ApiClient.LOTTERY;
+    }
+
     public async fetchWinningLotteryNumbers(): Promise<LotteryResponseDTO> {
         try {
-            const response = await fetch(ApiClient.BASE_URL + ApiClient.LOTTERY);
+            const response = await fetch(this.getLotteryURL());
 
             // Check if the response was successful
             if (!response.ok) {
