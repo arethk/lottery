@@ -38,7 +38,9 @@ app.get('/lottery', (req: Request, res: Response) => {
     const responseDTO: LotteryResponseDTO = new LotteryResponseDTO(now, winners, algorithm);
     res.header("Access-Control-Allow-Origin", "*");
     res.contentType("application/json");
-    res.send(responseDTO);
+    setTimeout(() => {
+        res.send(responseDTO);
+    }, 1500);
 });
 
 app.listen(port, () => {

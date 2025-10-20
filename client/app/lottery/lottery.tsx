@@ -92,7 +92,7 @@ export function Lottery() {
                         <div>Lottery</div>
                     )}
                 </header>
-                {isSubmitting === true && winningData.timestamp !== null ? (
+                {isSubmitting === true && winningData.algorithm ? (
                     <div>
                         <ul>
                             <li>Winners {winningData.results?.join(", ")}</li>
