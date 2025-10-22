@@ -24,9 +24,8 @@ public class LotteryApplication {
 	@GetMapping("/lottery")
 	public LotteryResponseDTO lottery() {
 		long unixTimestamp = Instant.now().getEpochSecond();
-		BasicRandom br = new BasicRandom();
 		String algorithm = "java basic";
-		LotteryResponseDTO dto = new LotteryResponseDTO(unixTimestamp, br.generateList(6, 1, 69), algorithm);
+		LotteryResponseDTO dto = new LotteryResponseDTO(unixTimestamp, BasicRandom.getInstance().generateList(6, 1, 69), algorithm);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
